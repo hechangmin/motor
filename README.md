@@ -1,4 +1,4 @@
-*** motor ？ what's this？***
+***motor ？ what's this***
 --------------
 
 * 这是用nodejs写的一个WEB服务器框架，谈不上什么MVC模式。
