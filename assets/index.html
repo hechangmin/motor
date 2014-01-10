@@ -1,0 +1,32 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+	<meta charset="UTF-8">
+	<meta http-equiv="X-UA-Compatible" content="IE=100">
+	<title>test</title>
+	<!--[if IE 6]>
+	<script>
+		document.execCommand("BackgroundImageCache", false, true);
+	</script>
+	<![endif]-->
+	<!-- <link rel="stylesheet" href="css/common/common.css" />
+	<link rel="stylesheet" href="css/index/index.css" /> -->
+</head>
+<body>
+    <img src="images/index/006.png">
+    <div id="area"></div>
+<script id="test" type="text/html">
+<% if (isAdmin) { %>
+<h1><%=title%></h1>
+<ul>
+    <% for (var i = 0; i < list.length; i ++) { %>
+        <li>索引 <%= i + 1 %> ：<%= App.helper.trim(list[i]) %></li>
+    <% } %>
+</ul>
+<% } %>
+</script>
+<script src="js/lib/jquery/jquery-1.9.1.min.js"></script>
+<script src="js/lib/jsloader/jsloader.min.js?v=201312101907"></script>
+<script src="js/index/index.js"></script>
+</body>
+</html>
