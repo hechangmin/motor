@@ -1,7 +1,7 @@
-#motor ？ what's this
+#motor是什么
 
-**这是用nodejs写的一个web服务器框架
-谈不上什么MVC模式，不过其流程清晰、配置简单、操控性强，就犹如摩托车一样 sexy。**
+*这是用nodejs写的一个web服务器框架
+谈不上什么MVC模式，不过其流程清晰、配置简单、操控性强，就犹如摩托车一样 sexy。*
 
 ###motor与express比较
 
@@ -29,4 +29,4 @@
 
 >不要投入生产环境使用，因为未经严格测试，功能也还有欠缺。
 
-_*欢迎联系我 [hechangmin@gmail.com](mailto://hechangmin@gmail.com)*_
+*[hechangmin@gmail.com](mailto://hechangmin@gmail.com)*
