@@ -7,19 +7,21 @@ var http     = require('http'),
     dispatch = require('./dispatch.js'),
     config   = require('./config.js'),
     port     = process.argv[2] || config.port || 8888,
-    isHttps  = config.https;
+    secure  = config.secure,
+    fs,
+    options;
 
-if(isHttps){
-    var fs = require('fs');
+if(secure.https){
+    fs = require('fs');
 
     // 需要有证书及私钥文件
-    var options = {
-        key  : fs.readFileSync('./privatekey.pem'),
-        cert : fs.readFileSync('./certificate.pem')
+    options = {
+        key  : fs.readFileSync(secure.key),
+        cert : fs.readFileSync(secure.cert)
     };
 }
 
-var server = isHttps ? https.createServer(options): http.createServer();
+var server = secure.https ? https.createServer(options): http.createServer();
 server.on('request', dispatch.init);
 server.listen(port);
 
