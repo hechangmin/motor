@@ -98,18 +98,27 @@ function processRange (str, size) {
 function processCompress(req, res, ext, raw, statusCode, reason, size) {
     var stream         = raw,
         acceptEncoding = req.headers['accept-encoding'] || "",
-        matched        = ext.match(config.gzip),
         hadCompress    = false,
-        zlib           = require("zlib");
+        matched,
+        zlib;
 
-    if (matched && acceptEncoding.match(/\bgzip\b/)) {
-        res.setHeader("Content-Encoding", "gzip");
-        stream = raw.pipe(zlib.createGzip());
-        hadCompress = true;
-    } else if (matched && acceptEncoding.match(/\bdeflate\b/)) {
-        res.setHeader("Content-Encoding", "deflate");
-        stream = raw.pipe(zlib.createDeflate());
-        hadCompress = true;
+    if(config.gzip){
+
+        matched = ext.match(config.gzip);
+
+        if(matched){
+            zlib    = require("zlib");
+
+            if (acceptEncoding.match(/\bgzip\b/)) {
+                res.setHeader("Content-Encoding", "gzip");
+                stream = raw.pipe(zlib.createGzip());
+                hadCompress = true;
+            } else if (acceptEncoding.match(/\bdeflate\b/)) {
+                res.setHeader("Content-Encoding", "deflate");
+                stream = raw.pipe(zlib.createDeflate());
+                hadCompress = true;
+            }
+        }
     }
 
     if(!hadCompress){
