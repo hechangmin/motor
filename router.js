@@ -33,7 +33,16 @@ function router(req, res, curPath, realPath){
     //分派到模块
 
 }
+// if('favicon.ico' === curPath.slice(1)){
+//         fs.exists(favicon, function (exists) {
+//             if(exists){
+//                 res.writeHead(302, {'Location': location});
+//                 res.end();
+//             }else{
 
+//             }
+//         });
+//     }
 module.exports = {
 
     disPatchDynamic : function(){

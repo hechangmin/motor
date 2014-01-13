@@ -29,7 +29,7 @@ function process404(res, curPath){
  */
 function process302(res, location){
     res.writeHead(302, {'Location': location});
-    response.end();
+    res.end();
 }
 
 /**

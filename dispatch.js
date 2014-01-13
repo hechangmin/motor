@@ -16,8 +16,8 @@ exports.init = function(req, res) {
 
     res.setHeader("Server", config.serverName);
 
-    if(config.debug){
-        console.log(realPath, curPath);
+    if(config.access_log){
+        require('./log.js').logger("access").info(realPath);
     }
 
     //判断访问路径权限

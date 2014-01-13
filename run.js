@@ -7,7 +7,7 @@ var http     = require('http'),
     dispatch = require('./dispatch.js'),
     config   = require('./config.js'),
     port     = process.argv[2] || config.port || 8888,
-    secure  = config.secure,
+    secure   = config.secure,
     fs,
     options;
 
