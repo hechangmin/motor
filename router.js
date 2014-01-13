@@ -33,20 +33,17 @@ function router(req, res, curPath, realPath){
     //分派到模块
 
 }
-// if('favicon.ico' === curPath.slice(1)){
-//         fs.exists(favicon, function (exists) {
-//             if(exists){
-//                 res.writeHead(302, {'Location': location});
-//                 res.end();
-//             }else{
 
-//             }
-//         });
-//     }
 module.exports = {
 
-    disPatchDynamic : function(){
-        //
+    disPatchDynamic : function(req, res, curPath, realPath){
+        router(req, res, curPath, realPath);
+
+        if('favicon.ico' === curPath.slice(1)){
+            core.disPatchAsset(req, res, curPath, realPath);
+        }else{
+
+        }
     },
 
     disPatchAsset : function(req, res, curPath, realPath){

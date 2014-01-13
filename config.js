@@ -23,7 +23,7 @@ module.exports = {
 
     //缓存配置
     expires    : {
-        fileMatch  : /^(gif|png|jpg|js|css)$/ig,
+        fileMatch  : /^(gif|png|jpg|js|css|ico)$/ig,
         //关闭该功能 maxAge ：0
         maxAge     : 604800000 //一周 7*24*60*60*1000
     },

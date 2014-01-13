@@ -1,6 +1,6 @@
 #motor是什么
 
-**这是用nodejs写的一个web服务器框架   
+**这是用nodejs写的一个web服务器框架
 谈不上什么模式，不过其流程清晰、配置简单、操控性强。**
 
 ###motor与express比较
@@ -19,6 +19,9 @@
    * cookie 操作部分已完成;
    * 模板引擎 已完成，直接沿用了 [jstpl](https://github.com/hechangmin/jstpl);
    * 基本配置文件、及流程基本成型。
+* 2014.1.13
+   * 增加日志功能，引入了log4js；
+   * 专门对favicon.ico 请求做了处理;
 
 
 未完待续：
