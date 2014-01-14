@@ -48,5 +48,17 @@ module.exports = {
             category: 'error'
         }],
         replaceConsole: true
+    },
+
+    mail : {
+        host: 'smtp.qq.com',
+        // use SSL
+        secureConnection: true,
+        // port for secure SMTP
+        port: 465,
+        auth: {
+            user: '51411970@qq.com',
+            pass: '*******'
+        }
     }
 };

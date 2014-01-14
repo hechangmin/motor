@@ -22,7 +22,8 @@
 * 2014.1.13
    * 增加日志功能，引入了log4js；
    * 专门对favicon.ico 请求做了处理;
-
+* 2014.1.13
+   * 增加发邮件功能模块，引入nodemailer;
 
 未完待续：
    * get\post\access.log\error.log\rewrite 等等

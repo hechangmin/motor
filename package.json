@@ -1,11 +1,12 @@
 {
-  "name": "motor",
-  "description": "web-server",
-  "version": "1.0.0",
-  "homepage": "http://github.com/hechangmin/motor",
-  "dependencies": {},
-  "devDependencies": {
-    "log4js": "~0.6.9"
-  },
-  "author": "hechangmin<hechangmin@gmail.com>"
+    "name"            : "motor",
+    "description"     : "web-server",
+    "version"         : "1.0.0",
+    "homepage"        : "http://github.com/hechangmin/motor",
+    "dependencies"    : {},
+    "devDependencies" : {
+        "log4js"          : "~0.6.9",
+        "nodemailer"      : "~0.6.0"
+    },
+    "author"          : "hechangmin<hechangmin@gmail.com>"
 }
