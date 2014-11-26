@@ -89,7 +89,7 @@ function handleDomain(req, res){
 
 exports.init = function(req, res) {
     requestEx(req, res);
-    responseEx(res);
+    responseEx(req, res);
     handleDomain(req, res);
     dispatch(req, res);
 };

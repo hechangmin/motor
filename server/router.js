@@ -8,10 +8,12 @@ var strModBasePath = './node_action/';
 
 module.exports = [
     ['GET', '/template/index.html', load('template')],
+    
     ['GET', '/upload/index.html', load('upload', 'index')],
     ['GET', '/upload/multipart', load('upload', 'multipart')],
     ['POST', '/upload/upload', load('upload', 'upload')],
-    ['GET', '/upload/show', load('upload', 'show')]
+    ['GET', '/upload/show', load('upload', 'show')],
+    ['GET', '/api/test.json', load('api')]
 ];
 
 function load(mod, action){
