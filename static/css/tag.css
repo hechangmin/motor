@@ -1,0 +1,86 @@
+.category{
+	clear: both;
+	overflow: hidden;
+	margin: 10px 10px;
+	line-height: 22px;
+}
+
+.category .title{
+	float: left;
+	margin: 0 10px;
+	font-weight: bold;
+	_display: inline;
+}
+
+.category .list{
+	float: left;
+}
+
+.category .item{
+	float: left;
+	margin: 0 2px;
+	_display: inline;
+}
+
+.category .link{
+	float: left;
+	padding: 0 8px;
+	border-radius: 3px;
+	text-align: center;
+}
+
+.category .link:hover{
+	background: #eee;
+	text-decoration: none;
+}
+
+.category .item-cur .link,
+.category .item-cur .link:hover{
+	color: #fff;
+	background: #fd852e;
+	text-decoration: none;
+}
+
+.category .checkbox{
+	padding: 0 3px;
+}
+
+.pagination{
+	padding: 15px;
+	text-align: center;
+	border-top: 1px solid #ececec;
+}
+
+.pagination .item{
+	color: #888;
+	height: 18px;
+	margin: 0 3px;
+	line-height: 18px;
+	display: inline-block;
+	vertical-align: middle;
+	*display: inline;
+	*zoom: 1;
+}
+
+.pagination .item .link{
+	padding: 0 4px;
+	display: inline-block;
+	border: 1px solid #d1d1d1;
+}
+
+.pagination .link:hover{
+	text-decoration: none;
+}
+
+.pagination .item-disabled .link{
+	color: #888;
+	cursor: default;
+	border-color: #fff;
+}
+
+.pagination .item-cur .link{
+	color: #fff;
+	border-radius: 2px;
+	background: #428cd9;
+	border: 1px solid #428cd9;
+}

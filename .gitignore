@@ -218,5 +218,7 @@ pip-log.txt
 ## nodejs
 #############
 node_modules/
-a__node_modules/
-log/
+node_test/
+node_test/cache/
+node_test/log/
+node_test/upload/
