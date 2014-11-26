@@ -7,7 +7,7 @@
 var strModBasePath = './node_action/';
 
 module.exports = [
-	['GET', '/template/index.html', load('template')],
+    ['GET', '/template/index.html', load('template')],
     ['GET', '/upload/index.html', load('upload', 'index')],
     ['GET', '/upload/multipart', load('upload', 'multipart')],
     ['POST', '/upload/upload', load('upload', 'upload')],
