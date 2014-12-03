@@ -13,7 +13,11 @@ module.exports = [
     ['GET', '/upload/multipart', load('upload', 'multipart')],
     ['POST', '/upload/upload', load('upload', 'upload')],
     ['GET', '/upload/show', load('upload', 'show')],
-    ['GET', '/api/test.json', load('api')]
+    
+    ['GET', '/api/test.json', load('api')],
+
+    ['GET', '/session/index.html', load('session', 'index')],
+    ['POST', '/session/login', load('session', 'login')]
 ];
 
 function load(mod, action){

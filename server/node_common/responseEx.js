@@ -7,22 +7,23 @@
  * res.clearCookie  清除Cookie
  */
 
-var zlib = require('zlib');
-var logger = require('./log.js');
-var configs = require('../configs.js');
-var mime = require('./mime.js').types;
-var common = require('./common.js');
+var zlib     = require('zlib'),
+    logger   = require('./log.js'),
+    Cookie   = require('./cookie.js'),
+    common   = require('./common.js'),
+    configs  = require('../configs.js'),
+    mime     = require('./mime.js').types;
 
 exports.init = function(req, res) {
-
-    var Cookie = require('./cookie.js');
-
+    
     res.setCookie = function(name, value, options) {
-        Cookie.set(res, name, value, options);
+        var strCookie = Cookie.set(name, value, options || {});
+        res.setHeader('Set-Cookie', strCookie);
     };
-
+    
     res.clearCookie = function(name, options) {
-        Cookie.clear(res, name, options);
+        var strCookie = Cookie.clear(name, options || {});
+        res.setHeader('Set-Cookie', strCookie);
     };
 
     res.json = function(obj) {

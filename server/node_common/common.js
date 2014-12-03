@@ -24,29 +24,6 @@ module.exports = {
         form.parse(req, callback);
     },
 
-    /**
-     * 为post end 事件提供回调封装
-     * @param  {request}   req
-     * @param  {Function} callback
-     */
-    onPostEnd : function(req, callback){
-        var body      = [];
-        var nPostSize = 0;
-
-        if (req.method.toUpperCase() === "POST") {
-            req.on('data', function (chunk) {
-                body.push(chunk);
-                nPostSize += chunk.length;
-                //上传大小控制
-                if(nPostSize >= configs.maxPostSize){
-                    callback(1, 'data too large.');
-                }
-            }).on("end", function () {
-                callback(0, Buffer.concat(body, nPostSize));
-            });
-        }        
-    },
-
     getMaxAge : function (extName){
         var expiresConfig = configs.expires,
             item,

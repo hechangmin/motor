@@ -8,20 +8,21 @@
 var url         = require('url'),
     path        = require('path'),
     domain      = require('domain'),
+    router      = require('./router.js'),
     configs     = require('./configs.js'),
     logger      = require('./node_common/log.js'),
     common      = require('./node_common/common.js'),
-    router      = require('./router.js'),
-    reqAssets   = require('./node_common/assetsHdler.js').init,
     requestEx   = require('./node_common/requestEx.js').init,
-    responseEx  = require('./node_common/responseEx.js').init;
+    responseEx  = require('./node_common/responseEx.js').init,
+    reqAssets   = require('./node_common/assetsHdler.js').init;
 
 function routing(req, res, curPath, extName) {
     var hasRouteRule = false;
 
     try {
         router.forEach(function(item, i) {
-            if (req.method.toUpperCase() === item[0].toUpperCase() && 0 === curPath.indexOf(item[1])) {
+            if (req.method.toUpperCase() === item[0].toUpperCase() 
+                && 0 === curPath.indexOf(item[1])) {
                 throw item[2];
             }
         });
@@ -41,7 +42,8 @@ function isForbidden(curPath, extName) {
     try {
         configs.forbidden.forEach(function(matchList, i) {
             matchList.forEach(function(item) {
-                if ((i < 2 && curPath.match(item)) || (item === extName) && i === 2) {
+                if ((i < 2 && curPath.match(item)) 
+                    || (item === extName) && i === 2) {
                     throw {};
                 }
             });
@@ -72,7 +74,7 @@ function dispatch(req, res){
             routing(req, res, curPath, extName);
         }catch(e){
             common.handle500(res, JSON.stringify(e));
-            logger.error(req.getIP(), 500, req.url, 'error in routing', req.reff);
+            logger.error(req.getIP(), 500, req.url, 'Error in routing', req.reff);
         }
     }
 }
@@ -80,7 +82,7 @@ function dispatch(req, res){
 function handleDomain(req, res){
     var d = domain.create();
     d.on('error', function(err) {
-        logger.error(req.getIP(), 500, req.url, 'Error caught by domain', req.reff);
+        logger.error(req.getIP(), 500, req.url, 'Error in domain ', req.reff);
     });
     d.add(req);
     d.add(res);

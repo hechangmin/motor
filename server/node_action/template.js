@@ -1,9 +1,3 @@
-/**
- * 首页
- * @author Lanfei
- * @date 2014.4.3
- */
-
 exports.init = function(req, res){
 	
 	var common = require('../node_action/common.js');

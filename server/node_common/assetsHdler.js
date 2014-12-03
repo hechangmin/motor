@@ -6,10 +6,10 @@
  */
 
 var fs       = require('fs'),
-    mime     = require('./mime.js').types,
-    configs  = require('../configs.js'),
     logger   = require('./log.js'),
-    common   = require('./common.js');
+    common   = require('./common.js'),
+    configs  = require('../configs.js'),
+    mime     = require('./mime.js').types;
 
 /**
  * 处理静态资源
@@ -80,4 +80,4 @@ exports.init = function(req, res, curPath, extName) {
             logger.access(req.getIP(), 200, req.url);
         }
     });
-}
+};

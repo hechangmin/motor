@@ -5,8 +5,8 @@
  * @date 2014.1
  */
 
-var nodemailer = require('nodemailer'),
-    util       = require('util'),
+var util       = require('util'),
+    nodemailer = require('nodemailer'),
     mailConf   = require('../configs.js').mail;
 
 exports.send = function(options) {

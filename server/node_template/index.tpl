@@ -1,4 +1,4 @@
-<% include('./template/header.tpl') %>
+<% include('./node_template/header.tpl') %>
 <div class="row">
 			<div class="col col-730 col-border col-shadow">
 				<h2 class="col-title text-orange">
@@ -1041,4 +1041,4 @@
 			</div>
 		</div>
 	</div>
-<% include('./template/footer.tpl') %>
+<% include('./node_template/footer.tpl') %>

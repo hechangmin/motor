@@ -1,10 +1,10 @@
 /**
  * 操作cookie
  * @author hechangmin@gmail.com
- * @date 2013.1.10
+ * @date 2014.12.3
  */
 
-function get(req, name) {
+exports.get = function(req, name) {
     var tmp, reg = new RegExp("(^| )" + name + "=([^;]*)(;|$)", "gi");
 
     if ((tmp = reg.exec(unescape(req.headers.cookie))))
@@ -12,32 +12,29 @@ function get(req, name) {
     return null;
 };
 
-function set(name, value, options) {
-    var exp = new Date(),
-        strCookie = name + "=" + escape(value);
+exports.set = function(name, value, options) {
+    var exp, strCookie = name + "=" + escape(value);
 
     strCookie += ((options.path) ? "; path=" + options.path : "");
     strCookie += ((options.domain) ? "; domain=" + options.domain : "");
 
-    if ("undefined" === typeof options.expires) {
-        //0 永不过期， 单位为分钟
-        if (options.expires == 0) {
-            options.expires = 100 * 365 * 24 * 60;
-        }
-
-        exp.setTime(exp.getTime() + options.expires * 60 * 1000);
+    if(options.expires){
+        exp = new Date();
+        //options.expires 天为单位
+        exp.setTime(exp.getTime() + options.expires * 24 * 60 * 60 * 1000);
         strCookie += "; expires=" + exp.toUTCString();
     }
-
+    
+    //仅https可用
     strCookie += ((options.secure) ? "; secure" : "");
 
     //如果sessionid 或者 不希望被浏览器JS 调用的cookie 应该加 httponly
     strCookie += ((options.httponly) ? "; httponly" : "");
 
     return strCookie;
-}
+};
 
-function clear(name, options) {
+exports.clear = function(name, options) {
 
     var strCookie = name;
 
@@ -47,19 +44,4 @@ function clear(name, options) {
     strCookie += "; expires=Thu, 01-Jan-70 00:00:01 GMT";
 
     return strCookie;
-}
-
-module.exports = {
-
-    get: get,
-
-    set: function(res, name, value, options) {
-        var strCookie = set(name, value, options || {});
-        res.setHeader('Set-Cookie', strCookie);
-    },
-
-    clear: function(res, name, options) {
-        var strCookie = clear(name, options || {});
-        res.setHeader('Set-Cookie', strCookie);
-    }
-}
+};

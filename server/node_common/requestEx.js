@@ -1,20 +1,20 @@
 /**
  * 为request实例增加扩展
  * @author  hechangmin
- * @date 2014.11.24
+ * @date 2014-12-03
  *
  * req.get       取GET参数
- * req.postData  取整段POST数据
- * req.getIP     获取客户端IP
+  * req.getIP     获取客户端IP
  * req.getCookie 获取cookie
  */
 
+var url     = require('url'),
+    Cookie  = require('./cookie.js'),
+    configs = require('../configs.js');
+
 exports.init = function(req, res){
     var mapQuery,
-        urlParams,
-        configs   = require('../configs.js'),
-        url       = require('url'),
-        Cookie    = require('./cookie.js');
+        urlParams;
 
     req.get = function (key){
         if(!mapQuery){
@@ -39,5 +39,23 @@ exports.init = function(req, res){
 
     req.getCookie = function(name){
         return Cookie.get(req, name);
+    };
+
+    req.onPostEnd = function(callback){
+        var postBody  = [];
+        var nPostSize = 0;
+        
+        if (req.method.toUpperCase() === "POST") {
+            req.on('data', function (chunk) {
+                postBody.push(chunk);
+                nPostSize += chunk.length;
+                //上传大小控制
+                if(nPostSize >= configs.maxPostSize){
+                    callback(1, 'data too large.');
+                }
+            }).on("end", function () {
+                callback(0, Buffer.concat(postBody, nPostSize));
+            });
+        }        
     };
 };
