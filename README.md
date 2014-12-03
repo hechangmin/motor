@@ -36,5 +36,5 @@
 
 >仅供学习参考，如果使用在生产环境，造成的异常概不负责。
 
-*[QQ](//Message/?Uin=51411970)*
+*[QQ 51411970](tencent://Message/?Uin=51411970)*
 *[hechangmin@gmail.com](mailto://hechangmin@gmail.com)*
