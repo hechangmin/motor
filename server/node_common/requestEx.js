@@ -9,7 +9,8 @@
  */
 
 var url     = require('url'),
-    Cookie  = require('./cookie.js'),
+    cookie  = require('./cookie.js'),
+    session = require('./session.js'),
     configs = require('../configs.js');
 
 exports.init = function(req, res){
@@ -38,14 +39,14 @@ exports.init = function(req, res){
     };
 
     req.getCookie = function(name){
-        return Cookie.get(req, name);
+        return cookie.get(req, name);
     };
 
-    req.onPostEnd = function(callback){
-        var postBody  = [];
-        var nPostSize = 0;
-        
-        if (req.method.toUpperCase() === "POST") {
+    // post 业务逻辑要放在回调里
+    if (req.method.toUpperCase() === "POST") {
+        req.onPostEnd = function(callback){
+            var postBody  = [];
+            var nPostSize = 0;
             req.on('data', function (chunk) {
                 postBody.push(chunk);
                 nPostSize += chunk.length;
@@ -56,6 +57,19 @@ exports.init = function(req, res){
             }).on("end", function () {
                 callback(0, Buffer.concat(postBody, nPostSize));
             });
-        }        
-    };
+        };
+    }
+
+    // 启用session的情况
+    if(configs.enabledSession){
+        req.sid = req.getCookie(configs.sessionName);
+        if(!req.sid){
+            req.sid = session.getSID();
+            res.setHeader('Set-Cookie', cookie.set(configs.sessionName, req.sid, {
+                httponly: 'httponly',
+                path: '/',
+                expires : 1
+            }));
+        }
+    }
 };

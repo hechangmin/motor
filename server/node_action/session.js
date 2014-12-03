@@ -22,6 +22,8 @@ exports.login = function(req, res){
 
     var token = req.getCookie('token');
 
+    console.log('req.sid', req.sid);
+    
     console.log('token', token);
     
     if(token){
@@ -40,6 +42,14 @@ exports.login = function(req, res){
         //应该检索下用户名密码是否存在于数据库
         if(user){
             var token = session.createToken(res, user);
+
+            try{
+                console.log(session.getSID());    
+            }catch(e){
+                console.log(e);
+            }
+            
+
             res.json({ok : token});
         }
     }

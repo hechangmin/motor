@@ -14,6 +14,13 @@ module.exports = {
     err404     : 'node_data/errpage/404.html',
     err500     : 'node_data/errpage/500.html',
 
+    //是否开启session功能
+    enabledSession : true,
+    //session 在cookie中的名字标识
+    sessionName : 'sid',
+    //session 使用的秘钥
+    sessionKey : 'motor',
+
     //关闭该功能 gzip : false
     gzip       : /css|js|html|json/ig,
 
@@ -23,7 +30,7 @@ module.exports = {
 
     //允许接收POST数据的大小上限
     maxPostSize : 1024 * 1024, // 1M
-    upload_path : 'node_data/upload',
+    uploadPath : 'node_data/upload',
     
     cssPath : '/css/',
     jsPath  : '/js/',

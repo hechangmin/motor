@@ -20,7 +20,7 @@ module.exports = {
         form.encoding = 'utf-8';
         form.keepExtensions = true;
         form.maxFieldsSize = configs.maxPostSize;
-        form.uploadDir = configs.upload_path; 
+        form.uploadDir = configs.uploadPath; 
         form.parse(req, callback);
     },
 
