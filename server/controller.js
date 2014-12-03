@@ -21,9 +21,16 @@ function routing(req, res, curPath, extName) {
 
     try {
         router.forEach(function(item, i) {
-            if (req.method.toUpperCase() === item[0].toUpperCase() 
-                && 0 === curPath.indexOf(item[1])) {
-                throw item[2];
+            if(0 === curPath.indexOf(item[1])){
+                if (req.method.toUpperCase() === item[0].toUpperCase()){
+                    throw item[2];
+                }else{
+                    //405
+                    common.handle405(res);
+                    logger.error(req.getIP(), 405, req.url, 'Method Not Allowed', req.reff);
+                    //避免再静态处理
+                    hasRouteRule = true;
+                }
             }
         });
     } catch (handle) {
@@ -31,6 +38,7 @@ function routing(req, res, curPath, extName) {
         handle(req, res);
     }
 
+    //路由失败尝试静态资源请求
     if (!hasRouteRule) {
         reqAssets.apply(null, arguments);
     }

@@ -14,7 +14,7 @@ $(function(){
         var pwd = $("#pwd").val();
         $.ajax({
             url: "/session/login",
-            method : 'post',
+            method : 'get',
             data : {                      
                 user : user,                       
                 pwd : pwd                  

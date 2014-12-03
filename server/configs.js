@@ -10,8 +10,9 @@ module.exports = {
     root       : __dirname,
     domain     : 'localhost',
     welcome    : 'index.html',
-    err403     : 'node_data/errpage/404.html',
+    err403     : 'node_data/errpage/403.html',
     err404     : 'node_data/errpage/404.html',
+    err405     : 'node_data/errpage/405.html',
     err500     : 'node_data/errpage/500.html',
 
     //是否开启session功能

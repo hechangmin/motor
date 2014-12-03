@@ -56,6 +56,22 @@ module.exports = {
         }
     },
 
+    handle405 : function(res) {
+        res.writeHead(405, "Method Not Allowed", {
+            'Content-Type': 'text/html'
+        });
+
+        try{
+            var stream = fs.createReadStream(configs.err405);
+            stream.on("error", function(err) {
+                res.end('Method Not Allowed');
+            });
+            stream.pipe(res);
+        }catch(e){
+            res.end('Method Not Allowed');
+        }
+    },
+
     handle403 : function(res) {
         res.writeHead(403, "Forbidden", {
             'Content-Type': 'text/html'
