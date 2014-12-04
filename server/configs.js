@@ -10,11 +10,21 @@ module.exports = {
     root       : __dirname,
     domain     : 'localhost',
     welcome    : 'index.html',
-    err403     : 'node_data/errpage/403.html',
-    err404     : 'node_data/errpage/404.html',
-    err405     : 'node_data/errpage/405.html',
-    err500     : 'node_data/errpage/500.html',
 
+    errPage  : {
+        403 : 'node_data/errpage/403.html',
+        404 : 'node_data/errpage/404.html',
+        405 : 'node_data/errpage/405.html',
+        500 : 'node_data/errpage/500.html'   
+    },
+
+    errDesc : {
+        500 : 'Internal Server Error',
+        405 : 'Method Not Allowed',
+        404 : 'Not Found',
+        403 : 'Forbidden'
+    },
+    
     //是否开启session功能
     enabledSession : true,
     //session 在cookie中的名字标识

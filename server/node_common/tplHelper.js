@@ -114,7 +114,7 @@ module.exports = function(){
     }
 
     function handleErr(req, res, err){
-        common.handle500(res, req.url);
+        common.handleError(res, 500);
         logger.error(req.getIP(), 500, req.url, err, req.reff);
     }
 

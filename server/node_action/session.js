@@ -19,14 +19,9 @@ exports.index = function(req, res){
 exports.login = function(req, res){
     var common = require('../node_common/common.js');
     var qs = require('querystring');
+    var hadLogin = false;
 
-    var token = req.getCookie('token');
-
-    console.log('req.sid', req.sid);
-    
-    console.log('token', token);
-    
-    if(token){
+    if(hadLogin){
         //清理token ? logout ?
     }
 
@@ -36,20 +31,10 @@ exports.login = function(req, res){
         var postData = data.toString();
         var postObj = qs.parse(postData);
         var session = require('../node_common/session.js');
-
-        console.log(postObj);
         var user = postObj.user;
         //应该检索下用户名密码是否存在于数据库
         if(user){
             var token = session.createToken(res, user);
-
-            try{
-                console.log(session.getSID());    
-            }catch(e){
-                console.log(e);
-            }
-            
-
             res.json({ok : token});
         }
     }

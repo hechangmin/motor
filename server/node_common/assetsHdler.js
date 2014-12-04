@@ -31,7 +31,7 @@ exports.init = function(req, res, curPath, extName) {
     fs.stat(curPath, function(err, stats) {
 
         if (err) {
-            common.handle404(res, req.url);
+            common.handleError(res, 404);
             logger.error(req.getIP(), 404, req.url);
             return;
         }

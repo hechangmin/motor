@@ -25,8 +25,7 @@ function routing(req, res, curPath, extName) {
                 if (req.method.toUpperCase() === item[0].toUpperCase()){
                     throw item[2];
                 }else{
-                    //405
-                    common.handle405(res);
+                    common.handleError(res, 405);
                     logger.error(req.getIP(), 405, req.url, 'Method Not Allowed', req.reff);
                     //避免再静态处理
                     hasRouteRule = true;
@@ -75,13 +74,13 @@ function dispatch(req, res){
     }
 
     if (isForbidden(curPath, extName)){
-        common.handle403(res);
+        common.handleError(res, 403);
         logger.error(req.getIP(), 403, req.url, 'Forbidden', req.reff);
     }else{
         try{
             routing(req, res, curPath, extName);
         }catch(e){
-            common.handle500(res, JSON.stringify(e));
+            common.handleError(res, 500, JSON.stringify(e));
             logger.error(req.getIP(), 500, req.url, 'Error in routing', req.reff);
         }
     }

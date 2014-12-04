@@ -9,7 +9,6 @@ var configs   = require('../configs.js');
 var formidable = require("formidable");
 
 module.exports = {
-
     /**
      * 上传文件回调
      * @param  {request}   req
@@ -25,85 +24,38 @@ module.exports = {
     },
 
     getMaxAge : function (extName){
-        var expiresConfig = configs.expires,
-            item,
+        var item,
             nIndex  = 0,
-            nMaxAge = 0;
+            nMaxAge = 0,
+            expiresConfig = configs.expires;
 
         while(item = expiresConfig[nIndex++]){
             if(item[0].test(extName)){
                 return item[1];
             }
         }
+        
         return 0;
     },
 
-    handle500 : function(res, err){
+    handleError : function(res, errorCode, error){
+        
+        error = error || configs.errDesc[errorCode];
+
         if(!res.headersSent){
-            res.writeHead(500, "Error", {
+            res.writeHead(errorCode, error, {
                 'Content-Type': 'text/html'
             });
         }
-
+        
         try{
-            var stream = fs.createReadStream(configs.err500);
+            var stream = fs.createReadStream(configs.errPage[errorCode]);
             stream.on("error", function(err) {
-                res.end('Internal Server Error');
+                res.end(error);
             });
             stream.pipe(res);
         }catch(e){
-            res.end('Internal Server Error');
-        }
-    },
-
-    handle405 : function(res) {
-        res.writeHead(405, "Method Not Allowed", {
-            'Content-Type': 'text/html'
-        });
-
-        try{
-            var stream = fs.createReadStream(configs.err405);
-            stream.on("error", function(err) {
-                res.end('Method Not Allowed');
-            });
-            stream.pipe(res);
-        }catch(e){
-            res.end('Method Not Allowed');
-        }
-    },
-
-    handle403 : function(res) {
-        res.writeHead(403, "Forbidden", {
-            'Content-Type': 'text/html'
-        });
-
-        try{
-            var stream = fs.createReadStream(configs.err403);
-            stream.on("error", function(err) {
-                res.end('Forbidden');
-            });
-            stream.pipe(res);
-        }catch(e){
-            res.end('Forbidden');
-        }
-    },
-
-    handle404 : function(res, url) {
-        if(!res.headersSent){
-            res.writeHead(404, "Not Found", {
-                'Content-Type': 'text/html'
-            });
-        }
-
-        try{
-            var stream = fs.createReadStream(configs.err404);
-            stream.on("error", function(err) {
-                res.end('404');
-            });
-
-            stream.pipe(res);
-        }catch(e){
-            res.end('404');
+            res.end(error);
         }
     },
 
