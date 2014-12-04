@@ -31,6 +31,10 @@ module.exports = {
     sessionName : 'sid',
     //session 使用的秘钥
     sessionKey : 'motor',
+    //session 过期
+    sessionExpires : 1,
+    //session path(先文件，后续可以用redis 或 db)
+    sessionPath : 'node_data/session/',
 
     //关闭该功能 gzip : false
     gzip       : /css|js|html|json/ig,

@@ -59,17 +59,4 @@ exports.init = function(req, res){
             });
         };
     }
-
-    // 启用session的情况
-    if(configs.enabledSession){
-        req.sid = req.getCookie(configs.sessionName);
-        if(!req.sid){
-            req.sid = session.getSID();
-            res.setHeader('Set-Cookie', cookie.set(configs.sessionName, req.sid, {
-                httponly: 'httponly',
-                path: '/',
-                expires : 1
-            }));
-        }
-    }
 };

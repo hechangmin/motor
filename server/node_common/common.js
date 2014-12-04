@@ -34,7 +34,7 @@ module.exports = {
                 return item[1];
             }
         }
-        
+
         return 0;
     },
 
@@ -57,6 +57,11 @@ module.exports = {
         }catch(e){
             res.end(error);
         }
+    },
+    
+    handle301 : function(res, url){
+        res.writeHead(301, {'Location': url});
+        res.end();
     },
 
     handle302 : function(res, url){

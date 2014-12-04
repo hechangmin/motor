@@ -15,6 +15,8 @@ var url         = require('url'),
     requestEx   = require('./node_common/requestEx.js').init,
     responseEx  = require('./node_common/responseEx.js').init,
     reqAssets   = require('./node_common/assetsHdler.js').init;
+    
+    global.session = require('./node_common/session.js');
 
 function routing(req, res, curPath, extName) {
     var hasRouteRule = false;
@@ -78,6 +80,8 @@ function dispatch(req, res){
         logger.error(req.getIP(), 403, req.url, 'Forbidden', req.reff);
     }else{
         try{
+            //加入session管理
+            session.init(req, res);
             routing(req, res, curPath, extName);
         }catch(e){
             common.handleError(res, 500, JSON.stringify(e));
@@ -99,6 +103,6 @@ function handleDomain(req, res){
 exports.init = function(req, res) {
     requestEx(req, res);
     responseEx(req, res);
-    handleDomain(req, res);
+    handleDomain(req, res);    
     dispatch(req, res);
 };

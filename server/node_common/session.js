@@ -4,45 +4,75 @@
  * @date 2014-11-27
  */
 
-var crypto = require('crypto');
-var uuid = require('./uuid.js');
+var fs = require('fs');
 
-//key中字符不要包含0~9及abcdef
-var key = 'motor';
-var sessionId = '';
+(function(uuid, configs){
 
+    var _sid = 0;
+    var _session = {};
+    var _path;
 
-exports.createToken = function(res, user) {
-	var secret = crypto.createHash('md5').update(user + key).digest('hex');
-	var q1 = (+new Date()).toString(16);
-	var q2 = parseInt(secret.length * Math.random());
-	var q3 = key.charAt(parseInt(key.length * Math.random()));
-	var q4 = q1.length;
-	var token = q3 + secret.substr(q2) + q1 + secret.substr(0, q2) + q3 + q4 + q3 + q2;
-	//console.log(q4, '|', q1, '|', q2, '|', q3, '|', secret);
+    function init(req, res){
+        
+        var needGet = true;
 
-	res.setCookie('token', token, {
-		httponly: 'httponly',
-		path: '/'
-	});
+        // 启用session的情况
+        if(configs.enabledSession){
 
-	console.log('hello', token);
+            _sid = req.getCookie(configs.sessionName);
+            
+            if(!_sid){
+                needGet = false;
+                _sid = uuid.init();
+            }
 
-	return token;
-};
+            _path = configs.sessionPath + _sid;
 
-exports.getSID = function(h) {
-	return uuid.init(h);
-};
+            if(needGet){
+                //读取\更新_session    
+                _get();
+            }
 
-var _parse = function(token) {
-	var q3 = token.charAt(0);
-	var arrToken = token.split(q3);
-	var q2 = parseInt(arrToken[arrToken.length - 1]);
-	var q4 = parseInt(arrToken[arrToken.length - 2]);
-	var len = 32 + q4;
-	var secret = arrToken[1];
-	var q1 = secret.substr(32 - q2, q4);
-	secret = secret.substr(len - q2) + secret.substr(0, 32 - q2);
-	//console.log(q4, '|', q1, '|', q2, '|', q3, '|', secret);
-};
+            //每次都设置，主要是为了让过期时间更合理
+            res.setCookie(configs.sessionName, _sid, {
+                httponly: 'httponly',
+                path: '/',
+                expires : configs.sessionExpires
+            });
+        }
+    }
+
+    function _set(){
+        var content = JSON.stringify(_session);
+        fs.writeFileSync(_path, content);
+    }
+
+    function _get(){
+        var content = '{}', obj = {};
+        try{
+            content = fs.readFileSync(_path, 'utf-8');
+            _session = JSON.parse(content);
+        }catch(err){
+            //console.log(err);
+        }
+    }
+
+    function prop(key, val){
+        if(_sid){
+            if(undefined !== val){
+                _session[key] = val;
+                _set();    
+            }else if(null === val){
+                delete _session[key];
+                _set(); 
+            }else{
+                return _session[key];
+            }
+        }
+    }
+
+    module.exports = {
+        prop : prop,
+        init : init
+    };
+}(require('./uuid.js'), require('../configs.js')));
