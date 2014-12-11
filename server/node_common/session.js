@@ -14,7 +14,7 @@ var fs = require('fs');
 
     function init(req, res){
         
-        var needGet = true;
+        var hasSID = true;
 
         // 启用session的情况
         if(configs.enabledSession){
@@ -22,13 +22,13 @@ var fs = require('fs');
             _sid = req.getCookie(configs.sessionName);
             
             if(!_sid){
-                needGet = false;
+                hasSID = false;
                 _sid = uuid.init();
             }
 
             _path = configs.sessionPath + _sid;
 
-            if(needGet){
+            if(hasSID){
                 //读取\更新_session    
                 _get();
             }
@@ -43,8 +43,13 @@ var fs = require('fs');
     }
 
     function _set(){
-        var content = JSON.stringify(_session);
-        fs.writeFileSync(_path, content);
+        var content {};
+        try{
+            content = JSON.stringify(_session);
+            fs.writeFileSync(_path, content);    
+        }catch(err){
+            //console.log(err);
+        }        
     }
 
     function _get(){

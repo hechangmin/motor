@@ -5,12 +5,13 @@
     "homepage"        : "http://github.com/hechangmin/",
     "dependencies"    : {},
     "devDependencies" : {
-        "log4js"     : "~0.6.9",
-        "nodemailer" : "~0.6.0",
-        "mysql"      : "~2.1.0",
-        "iconv-lite" : "~0.2.11",
+        "log4js"      : "~0.6.9",
+        "nodemailer"  : "~0.6.0",
+        "mysql"       : "~2.1.0",
+        "iconv-lite"  : "~0.2.11",
         "template4js" : "~2.2.0",
-        "formidable" : "~1.0.15"
+        "formidable"  : "~1.0.15",
+        "redis"       : "*"
     },
     "author" : "hechangmin<hechangmin@gmail.com>"
 }
