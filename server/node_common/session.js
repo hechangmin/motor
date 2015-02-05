@@ -43,7 +43,7 @@ var fs = require('fs');
     }
 
     function _set(){
-        var content {};
+        var content = {};
         try{
             content = JSON.stringify(_session);
             fs.writeFileSync(_path, content);    
